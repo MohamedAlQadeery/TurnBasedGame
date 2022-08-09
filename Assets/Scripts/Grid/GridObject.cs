@@ -15,7 +15,10 @@ namespace TurnBased.Grid
             this.gridPostion = gridPostion;
         }
 
-
+        public override string ToString()
+        {
+            return gridPostion.ToString();
+        }
     }
 
 }

@@ -33,9 +33,9 @@ namespace TurnBased.Grid
             }
         }
 
-        public Vector3 GetWorldPostion(int x, int z)
+        public Vector3 GetWorldPostion(GridPostion gridPostion)
         {
-            return new Vector3(x, 0, z) * cellSize;
+            return new Vector3(gridPostion.x, 0, gridPostion.z) * cellSize;
         }
 
 
@@ -53,9 +53,16 @@ namespace TurnBased.Grid
             {
                 for (int z = 0; z < height; z++)
                 {
-                    GameObject.Instantiate(debugObjectPrefab, GetWorldPostion(x, z), Quaternion.identity);
+                    var gridPostion = new GridPostion(x, z);
+                  var debugObject=  GameObject.Instantiate(debugObjectPrefab, GetWorldPostion(gridPostion), Quaternion.identity);
+                    debugObject.GetComponent<GridDebugObject>().SetGridObject(GetGridObject(gridPostion));
                 }
             }
+        }
+
+        public GridObject GetGridObject(GridPostion gridPostion)
+        {
+            return gridObjects[gridPostion.x, gridPostion.z];
         }
     }
 
